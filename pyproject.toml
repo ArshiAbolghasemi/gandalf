@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "gandalf"
+version = "0.1.0"
+description = "Gandalf is an AI travel planner that generates itineraries. making trip planning effortless and enjoyable."
+authors = ["arshiabolghasemi@gmail.com"]
+
+[tool.poetry.dependencies]
+python = "^3.13"
+fastapi = "^0.116.1"
+uvicorn = {extras = ["standard"], version = "^0.35.0"}
+openai = "^1.98.0"
+google-cloud-firestore = "^2.21.0"
+python-dotenv = "^1.1.1"
+
+[tool.poetry.scripts]
+start = "uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
