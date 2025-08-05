@@ -1,5 +1,6 @@
-from openai import OpenAI
 from functools import lru_cache
+
+from openai import OpenAI
 
 from app.openai.config import get_api_key, get_base_url, get_timeout
 

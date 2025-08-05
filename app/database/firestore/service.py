@@ -1,7 +1,9 @@
 from functools import lru_cache
+
 import firebase_admin
 from firebase_admin import credentials, firestore
 from google.cloud.firestore import Client
+
 from app.database.firestore.config import get_service_account_key
 
 
