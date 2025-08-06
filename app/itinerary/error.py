@@ -10,3 +10,5 @@ class PromptKeyMissingError(KeyError):
 
     def __str__(self) -> str:
         return f"Prompt {self._key} is not existed in itinerary package"
+
+INVALID_DESTINATION_ERROR = "Destination is invalid!"

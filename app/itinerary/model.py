@@ -1,3 +1,4 @@
+from datetime import datetime
 from enum import Enum
 from typing import List, Optional
 
@@ -24,3 +25,14 @@ class ItineraryDocumentStatus(Enum):
     PROCESSING = "processing"
     COMPLETED = "completed"
     FAILED = "failed"
+
+
+class ItineraryDocument(BaseModel):
+    jobId: str
+    status: ItineraryDocumentStatus
+    destination: str
+    durationDays: int
+    createdAt: datetime
+    completedAt: Optional[datetime] = None
+    itinerary: Optional[TravelItinerary] = None
+    error: Optional[str] = None
