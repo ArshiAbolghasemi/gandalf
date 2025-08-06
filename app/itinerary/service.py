@@ -1,14 +1,23 @@
 import asyncio
-from datetime import UTC, datetime
 import uuid
+from datetime import UTC, datetime
 from typing import cast
 
 from app.itinerary.error import INVALID_DESTINATION_ERROR
-from app.itinerary.model import ItineraryDocument, ItineraryDocumentStatus, TravelItinerary
-from app.itinerary.prompt import (PROMPT_SYSTEM_KEY, PROMPT_USER_KEY,
-                                  get_prompt_create_itinerary)
-from app.itinerary.repository import (create_itinerary_document,
-                                      update_itinerary_document)
+from app.itinerary.model import (
+    ItineraryDocument,
+    ItineraryDocumentStatus,
+    TravelItinerary,
+)
+from app.itinerary.prompt import (
+    PROMPT_SYSTEM_KEY,
+    PROMPT_USER_KEY,
+    get_prompt_create_itinerary,
+)
+from app.itinerary.repository import (
+    create_itinerary_document,
+    update_itinerary_document,
+)
 from app.itinerary.schema import CreateItineraryRequest
 from app.openai import service
 from app.openai.config import get_model
@@ -19,11 +28,10 @@ def _generate_create_itinerary_job_id() -> str:
     return str(uuid.uuid4())
 
 
-async def _generate_travel_itinerary(
-    *, itinerary_document: ItineraryDocument
-):
+async def _generate_travel_itinerary(*, itinerary_document: ItineraryDocument):
     prompt = get_prompt_create_itinerary(
-        destination=itinerary_document.destination, duration_days=itinerary_document.durationDays
+        destination=itinerary_document.destination,
+        duration_days=itinerary_document.durationDays,
     )
 
     try:
@@ -70,9 +78,7 @@ async def create_itinerary(*, request: CreateItineraryRequest) -> str:
     _ = create_itinerary_document(itinerary_document=itinerary_document)
 
     asyncio.create_task(
-        _generate_travel_itinerary(
-            itinerary_document=itinerary_document
-        )
+        _generate_travel_itinerary(itinerary_document=itinerary_document)
     )
 
     return job_id
