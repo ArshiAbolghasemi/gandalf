@@ -4,7 +4,7 @@ create_itinerary:
 
   user: |
     Create a detailed travel itinerary for {destination} spanning {duration_days} days.
-    Each day should have a theme and at least 2 activities with specific times, descriptions, and locations.
+    Each day should have a theme and at least 2 activities organized by time periods, descriptions, and locations.
     Include practical tips and make the itinerary culturally rich and realistic.
 
     IMPORTANT: If '{destination}' is not a real, valid travel destination, return null for the itinerary   field. Only create an itinerary for legitimate, real places that tourists can actually visit.
