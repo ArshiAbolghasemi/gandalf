@@ -1,5 +1,6 @@
 from google.cloud.firestore import DocumentReference
 
+from app.database.firestore.error import DocumentNotFoundError
 from app.database.firestore.service import get_client
 from app.itinerary.model import ItineraryDocument
 
@@ -27,3 +28,11 @@ def update_itinerary_document(
     doc.set(itinerary_document.model_dump(), merge=True)
 
     return doc
+
+
+def get_itinerary_document_by_job_id(*, job_id: str) -> ItineraryDocument:
+    doc = _get_itinerary_document_by_job_id(job_id=job_id)
+    doc_data = doc.get()
+    if not doc_data.exists:
+        raise DocumentNotFoundError(job_id)
+    return ItineraryDocument.model_construct(values=doc_data.to_dict())
