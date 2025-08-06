@@ -9,6 +9,7 @@ from app.itinerary.model import (ItineraryDocument, ItineraryDocumentStatus,
 from app.itinerary.prompt import (PROMPT_SYSTEM_KEY, PROMPT_USER_KEY,
                                   get_prompt_create_itinerary)
 from app.itinerary.repository import (create_itinerary_document,
+                                      get_itinerary_document_by_job_id,
                                       update_itinerary_document)
 from app.itinerary.schema import CreateItineraryRequest
 from app.openai import service
@@ -45,7 +46,9 @@ async def _generate_travel_itinerary(
             itinerary_document.error = INVALID_DESTINATION_ERROR
             itinerary_document.status = ItineraryDocumentStatus.FAILED
         else:
-            itinerary_document.itinerary = travel_itinerary
+            itinerary_document.itinerary = cast(
+                TravelItinerary, travel_itinerary.itinerary
+            )
             itinerary_document.status = ItineraryDocumentStatus.COMPLETED
     except CallModelError as e:
         itinerary_document.error = str(e)
@@ -75,3 +78,7 @@ async def create_itinerary(*, request: CreateItineraryRequest) -> str:
     )
 
     return job_id
+
+
+def get_itinerary(*, job_id: str) -> ItineraryDocument:
+    return get_itinerary_document_by_job_id(job_id=job_id)
