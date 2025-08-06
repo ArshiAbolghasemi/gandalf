@@ -3,9 +3,9 @@ from pathlib import Path
 from yaml import safe_load
 
 from app.itinerary.error import PromptKeyMissingError, PromptTypeError
-from app.itinerary.schema import CreateItineraryRequest
 
-_PROMPT_USER_KEY = "user"
+PROMPT_USER_KEY = "user"
+PROMPT_SYSTEM_KEY = "system"
 
 
 def _get_prompt(key):
@@ -22,18 +22,18 @@ def _get_prompt(key):
 
 
 def get_prompt_create_itinerary(
-    create_itinerary_request: CreateItineraryRequest,
+    *, destination: str, duration_days: int
 ) -> dict[str, str]:
     prompt = _get_prompt("create_itinerary")
 
-    if not _PROMPT_USER_KEY in prompt:
+    if not PROMPT_USER_KEY in prompt or not PROMPT_SYSTEM_KEY in prompt:
         raise PromptTypeError()
 
-    promt_user = prompt[_PROMPT_USER_KEY].format(
-        destination=create_itinerary_request.destination,
-        duration_days=create_itinerary_request.durationDays,
+    promt_user = prompt[PROMPT_USER_KEY].format(
+        destination=destination,
+        duration_days=duration_days,
     )
 
-    prompt[_PROMPT_USER_KEY] = promt_user
+    prompt[PROMPT_USER_KEY] = promt_user
 
     return prompt
