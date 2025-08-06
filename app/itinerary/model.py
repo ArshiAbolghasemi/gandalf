@@ -5,7 +5,7 @@ from typing import List, Optional
 from pydantic import BaseModel
 
 
-class DayTime(Enum):
+class DayTime(str, Enum):
     MORNING = "Morning"
     AFTERNOON = "Afternoon"
     EVENING = "Evening"
