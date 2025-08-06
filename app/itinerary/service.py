@@ -28,7 +28,7 @@ async def _generate_travel_itinerary(
         destination=destination, duration_days=duration_days
     )
 
-    travel_itinerary = service.parse_model_response(
+    travel_itinerary = await service.parse_model_response(
         model=get_model(),
         input=[
             {
