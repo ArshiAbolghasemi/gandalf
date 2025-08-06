@@ -20,11 +20,10 @@ def _generate_create_itinerary_job_id() -> str:
     return str(uuid.uuid4())
 
 
-async def _generate_travel_itinerary(*, itinerary_document: ItineraryDocument):
-    prompt = get_prompt_create_itinerary(
-        destination=itinerary_document.destination,
-        duration_days=itinerary_document.durationDays,
-    )
+async def _generate_travel_itinerary(
+    *, itinerary_document: ItineraryDocument, request: CreateItineraryRequest
+):
+    prompt = get_prompt_create_itinerary(request=request)
 
     try:
         travel_itinerary = await service.parse_model_response(
@@ -70,7 +69,9 @@ async def create_itinerary(*, request: CreateItineraryRequest) -> str:
     _ = create_itinerary_document(itinerary_document=itinerary_document)
 
     asyncio.create_task(
-        _generate_travel_itinerary(itinerary_document=itinerary_document)
+        _generate_travel_itinerary(
+            itinerary_document=itinerary_document, request=request
+        )
     )
 
     return job_id
