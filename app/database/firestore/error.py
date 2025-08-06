@@ -7,6 +7,7 @@ class ConfigMissingError(Exception):
     def __str__(self) -> str:
         return f"Firestore {self._missing_key} is missed!"
 
+
 class DocumentNotFoundError(Exception):
 
     def __init__(self, doc_id):
