@@ -1,5 +1,7 @@
 from pydantic import BaseModel, Field
 
+from app.itinerary.model import ItineraryDocument
+
 
 class CreateItineraryRequest(BaseModel):
     destination: str
@@ -8,3 +10,7 @@ class CreateItineraryRequest(BaseModel):
 
 class CreateItineraryResponse(BaseModel):
     jobId: str
+
+
+class GetItineraryDocumentResponse(BaseModel):
+    document: ItineraryDocument
