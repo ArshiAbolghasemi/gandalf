@@ -4,20 +4,12 @@ from datetime import UTC, datetime
 from typing import cast
 
 from app.itinerary.error import INVALID_DESTINATION_ERROR
-from app.itinerary.model import (
-    ItineraryDocument,
-    ItineraryDocumentStatus,
-    TravelItinerary,
-)
-from app.itinerary.prompt import (
-    PROMPT_SYSTEM_KEY,
-    PROMPT_USER_KEY,
-    get_prompt_create_itinerary,
-)
-from app.itinerary.repository import (
-    create_itinerary_document,
-    update_itinerary_document,
-)
+from app.itinerary.model import (ItineraryDocument, ItineraryDocumentStatus,
+                                 TravelItinerary)
+from app.itinerary.prompt import (PROMPT_SYSTEM_KEY, PROMPT_USER_KEY,
+                                  get_prompt_create_itinerary)
+from app.itinerary.repository import (create_itinerary_document,
+                                      update_itinerary_document)
 from app.itinerary.schema import CreateItineraryRequest
 from app.openai import service
 from app.openai.config import get_model

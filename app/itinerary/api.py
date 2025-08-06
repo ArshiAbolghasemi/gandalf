@@ -1,7 +1,8 @@
 from fastapi import APIRouter, status
 
 from app.itinerary import service
-from app.itinerary.schema import CreateItineraryRequest, CreateItineraryResponse
+from app.itinerary.schema import (CreateItineraryRequest,
+                                  CreateItineraryResponse)
 
 router = APIRouter(prefix="/api/v1/itinerary", tags=["itinerary"])
 
