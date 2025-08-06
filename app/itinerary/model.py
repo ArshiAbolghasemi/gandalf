@@ -5,13 +5,20 @@ from typing import List, Optional
 from pydantic import BaseModel
 
 
+class DayTime(Enum):
+    MORNING = "Morning"
+    AFTERNOON = "Afternoon"
+    EVENING = "Evening"
+    NIGHT = "Night"
+
+
 class Activity(BaseModel):
-    time: str
+    time: DayTime
     description: str
     location: str
 
 
-class DailyItinerary:
+class DailyItinerary(BaseModel):
     day: int
     theme: str
     activities: List[Activity]
@@ -21,7 +28,7 @@ class TravelItinerary(BaseModel):
     itinerary: Optional[List[DailyItinerary]] = None
 
 
-class ItineraryDocumentStatus(Enum):
+class ItineraryDocumentStatus(str, Enum):
     PROCESSING = "processing"
     COMPLETED = "completed"
     FAILED = "failed"
