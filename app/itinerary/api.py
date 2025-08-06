@@ -4,7 +4,7 @@ from app.itinerary import service
 from app.itinerary.schema import (CreateItineraryRequest,
                                   CreateItineraryResponse)
 
-router = APIRouter(prefix="/api/v1/itinerary", tags=["itinerary"])
+router = APIRouter(prefix="/api/v1/itineraries", tags=["itinerary"])
 
 
 @router.post(
