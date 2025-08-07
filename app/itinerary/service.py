@@ -11,7 +11,8 @@ from app.itinerary.prompt import (PROMPT_SYSTEM_KEY, PROMPT_USER_KEY,
 from app.itinerary.repository import (create_itinerary_document,
                                       get_itinerary_document_by_job_id,
                                       update_itinerary_document)
-from app.itinerary.schema import CreateItineraryOpenAIResponse, CreateItineraryRequest
+from app.itinerary.schema import (CreateItineraryOpenAIResponse,
+                                  CreateItineraryRequest)
 from app.openai import service
 from app.openai.config import get_model
 from app.openai.error import CallModelError

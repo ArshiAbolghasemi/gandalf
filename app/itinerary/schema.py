@@ -1,4 +1,5 @@
 from typing import Optional
+
 from pydantic import BaseModel, Field
 
 from app.itinerary.model import ItineraryDocument, TravelItinerary
@@ -11,6 +12,7 @@ class CreateItineraryRequest(BaseModel):
 
 class CreateItineraryResponse(BaseModel):
     jobId: str
+
 
 class CreateItineraryOpenAIResponse(BaseModel):
     itinerary: Optional[TravelItinerary] = None
