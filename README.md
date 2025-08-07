@@ -27,5 +27,5 @@ Copy `.env.example` to `.env` and configure the required environment variables: 
 4. Client polls GET endpoint to check completion status
 5. Generated itinerary is returned when processing completes
 
-Wiki pages you might want to explore:
-- [Getting Started (ArshiAbolghasemi/gandalf)](/wiki/ArshiAbolghasemi/gandalf#2)
+Wiki pages you might want to explore for more details:
+- [Wiki Page](https://deepwiki.com/ArshiAbolghasemi/gandalf)
