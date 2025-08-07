@@ -23,10 +23,7 @@ class DailyItinerary(BaseModel):
     theme: str
     activities: List[Activity]
 
-
-class TravelItinerary(BaseModel):
-    itinerary: Optional[List[DailyItinerary]] = None
-
+TravelItinerary = List[DailyItinerary]
 
 class ItineraryDocumentStatus(str, Enum):
     PROCESSING = "processing"
@@ -43,3 +40,5 @@ class ItineraryDocument(BaseModel):
     completedAt: Optional[datetime] = None
     itinerary: Optional[TravelItinerary] = None
     error: Optional[str] = None
+
+

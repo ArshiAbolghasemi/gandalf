@@ -11,7 +11,7 @@ from app.itinerary.prompt import (PROMPT_SYSTEM_KEY, PROMPT_USER_KEY,
 from app.itinerary.repository import (create_itinerary_document,
                                       get_itinerary_document_by_job_id,
                                       update_itinerary_document)
-from app.itinerary.schema import CreateItineraryRequest
+from app.itinerary.schema import CreateItineraryOpenAIResponse, CreateItineraryRequest
 from app.openai import service
 from app.openai.config import get_model
 from app.openai.error import CallModelError
@@ -27,7 +27,7 @@ async def _generate_travel_itinerary(
     prompt = get_prompt_create_itinerary(request=request)
 
     try:
-        travel_itinerary = await service.parse_model_response(
+        response = await service.parse_model_response(
             model=get_model(),
             input=[
                 {
@@ -39,16 +39,14 @@ async def _generate_travel_itinerary(
                     "content": prompt[PROMPT_USER_KEY],
                 },
             ],
-            text_format=TravelItinerary,
+            text_format=CreateItineraryOpenAIResponse,
         )
-        travel_itinerary = cast(TravelItinerary, travel_itinerary)
-        if travel_itinerary.itinerary is None:
+        response = cast(CreateItineraryOpenAIResponse, response)
+        if response.itinerary is None:
             itinerary_document.error = INVALID_DESTINATION_ERROR
             itinerary_document.status = ItineraryDocumentStatus.FAILED
         else:
-            itinerary_document.itinerary = cast(
-                TravelItinerary, travel_itinerary.itinerary
-            )
+            itinerary_document.itinerary = response.itinerary
             itinerary_document.status = ItineraryDocumentStatus.COMPLETED
     except CallModelError as e:
         itinerary_document.error = str(e)
