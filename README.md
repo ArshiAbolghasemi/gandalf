@@ -15,9 +15,15 @@ For complete API documentation with interactive examples, visit the Swagger UI a
 http://localhost:8000/docs#/
 ```
 
-## Configuration
+## How to Run
 
-Copy `.env.example` to `.env` and configure the required environment variables: <cite/>
+Copy `.env.example` to `.env` and configure the required environment variables
+
+Then build the project
+
+```bash
+docker-compose up -d --build
+```
 
 ## Processing Flow
 
