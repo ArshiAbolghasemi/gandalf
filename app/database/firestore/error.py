@@ -15,4 +15,4 @@ class DocumentNotFoundError(Exception):
         super().__init__(doc_id)
 
     def __str__(self) -> str:
-        return f"firestore document {self._doc_id} is not found!"
+        return f"document {self._doc_id} is not found!"
