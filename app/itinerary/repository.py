@@ -35,4 +35,4 @@ def get_itinerary_document_by_job_id(*, job_id: str) -> ItineraryDocument:
     doc_data = doc.get()
     if not doc_data.exists:
         raise DocumentNotFoundError(job_id)
-    return ItineraryDocument.model_construct(values=doc_data.to_dict())
+    return ItineraryDocument.model_validate(obj=doc_data.to_dict())
