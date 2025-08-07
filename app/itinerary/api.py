@@ -1,5 +1,6 @@
-from fastapi import APIRouter, status
+from fastapi import APIRouter, HTTPException, status
 
+from app.database.firestore.error import DocumentNotFoundError
 from app.itinerary import service
 from app.itinerary.schema import (CreateItineraryRequest,
                                   CreateItineraryResponse,
@@ -18,5 +19,8 @@ async def create_itinerary(request: CreateItineraryRequest):
 
 @router.get("/{job_id}", response_model=GetItineraryDocumentResponse)
 def get_itinerary(job_id: str):
-    itinerary_document = service.get_itinerary(job_id=job_id)
-    return GetItineraryDocumentResponse(document=itinerary_document)
+    try:
+        itinerary_document = service.get_itinerary(job_id=job_id)
+        return GetItineraryDocumentResponse(document=itinerary_document)
+    except DocumentNotFoundError as e:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(e))
